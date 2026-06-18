@@ -45,8 +45,7 @@ async function fetchParkSchedule(themeParksId: string): Promise<ParkSchedule> {
     ) as ScheduleEntry | undefined;
     if (!operating) return { hours: null, isOpen: false };
 
-    const nowET = new Date().toLocaleString('en-US', { timeZone: 'America/New_York' });
-    const nowMs = new Date(nowET).getTime();
+    const nowMs = Date.now();
     const openMs = new Date(operating.openingTime).getTime();
     const closeMs = new Date(operating.closingTime).getTime();
 
