@@ -32,7 +32,7 @@ export function RideList({ rides, headlinerNames }: Props) {
             <span className="truncate">{ride.name}</span>
           </span>
           <span className="text-sm font-semibold text-[#8B7355] tabular-nums flex-shrink-0 ml-3">
-            {ride.wait_time} min
+            {ride.isShow ? '—' : `${ride.wait_time} min`}
           </span>
         </li>
       ))}

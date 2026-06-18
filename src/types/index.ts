@@ -4,6 +4,7 @@ export interface Ride {
   is_open: boolean;
   wait_time: number;
   last_updated: string;
+  isShow?: boolean; // true for theatrical shows — display "—" instead of wait time, excluded from scoring
 }
 
 export interface Land {
