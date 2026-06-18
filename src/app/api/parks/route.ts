@@ -5,6 +5,7 @@ import { PARKS } from '@/config/parks';
 import { HEADLINERS } from '@/config/headliners';
 import { ScoredPark } from '@/types';
 
+export const dynamic = 'force-static';
 export const revalidate = 300; // 5-minute Vercel edge cache
 
 export async function GET() {

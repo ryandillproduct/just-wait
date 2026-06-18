@@ -5,7 +5,7 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        playfair: ['Playfair Display', 'Georgia', 'serif'],
+        playfair: ['var(--font-playfair)', 'Georgia', 'serif'],
         sans: ['Inter', 'system-ui', 'sans-serif'],
       },
     },
