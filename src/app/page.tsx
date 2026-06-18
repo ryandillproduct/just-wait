@@ -39,7 +39,11 @@ export default function Home() {
           Just Wait
         </h1>
         <p className="mt-2 text-[#8B7355] text-base tracking-wide">
-          See crowd levels. Tap a park for wait times.
+          Live park crowd levels.
+        </p>
+        <p className="mt-3 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#F5C842]/15 text-[#8B7355] text-sm">
+          <span className="text-base" aria-hidden="true">👆</span>
+          Tap a park for attraction wait times
         </p>
       </header>
 
@@ -70,17 +74,6 @@ export default function Home() {
         </div>
       )}
 
-      <footer className="mt-16 text-center text-[#C4B49A] text-xs">
-        Wait times via{' '}
-        <a
-          href="https://queue-times.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="underline hover:text-[#8B7355] transition-colors"
-        >
-          queue-times.com
-        </a>
-      </footer>
     </main>
   );
 }
