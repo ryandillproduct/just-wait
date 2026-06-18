@@ -11,9 +11,10 @@ export const revalidate = 300;
 
 function formatHours(opening: string, closing: string): string {
   const fmt = (iso: string) => {
-    const d = new Date(iso);
-    const h = d.getHours();
-    const m = d.getMinutes();
+    // Parse time digits directly from the ISO string — avoids UTC conversion
+    const [hStr, mStr] = iso.split('T')[1].slice(0, 5).split(':');
+    const h = parseInt(hStr, 10);
+    const m = parseInt(mStr, 10);
     const ampm = h >= 12 ? 'PM' : 'AM';
     const hour12 = h % 12 || 12;
     return m === 0 ? `${hour12} ${ampm}` : `${hour12}:${String(m).padStart(2, '0')} ${ampm}`;
