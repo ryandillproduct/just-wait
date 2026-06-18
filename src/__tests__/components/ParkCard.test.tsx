@@ -14,19 +14,13 @@ const park: ScoredPark = {
 };
 
 describe('ParkCard', () => {
-  it('renders park name and score', () => {
+  it('renders park name', () => {
     render(<ParkCard park={park} isBest={false} headlinerNames={[]} />);
     expect(screen.getByText('Magic Kingdom')).toBeInTheDocument();
-    expect(screen.getByText('2')).toBeInTheDocument();
   });
 
-  it('renders crown when isBest is true', () => {
+  it('does not render a crown badge', () => {
     render(<ParkCard park={park} isBest={true} headlinerNames={[]} />);
-    expect(screen.getByLabelText('Top park pick')).toBeInTheDocument();
-  });
-
-  it('does not render crown when isBest is false', () => {
-    render(<ParkCard park={park} isBest={false} headlinerNames={[]} />);
     expect(screen.queryByLabelText('Top park pick')).not.toBeInTheDocument();
   });
 

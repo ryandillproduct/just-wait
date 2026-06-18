@@ -1,15 +1,17 @@
 interface Props {
   parkKey: 'magic-kingdom' | 'epcot' | 'hollywood-studios' | 'animal-kingdom';
   className?: string;
+  style?: React.CSSProperties;
 }
 
-export function ParkSilhouette({ parkKey, className = '' }: Props) {
+export function ParkSilhouette({ parkKey, className = '', style }: Props) {
   return (
     <svg
       viewBox="0 0 100 80"
       fill="currentColor"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
+      style={style}
       aria-hidden="true"
     >
       {parkKey === 'magic-kingdom' && <MagicKingdomPath />}

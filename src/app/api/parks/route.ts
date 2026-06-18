@@ -16,7 +16,7 @@ export async function GET() {
         const score = calculateParkScore(allRides, HEADLINERS[park.id] ?? []);
         const openRides = allRides
           .filter((r) => r.is_open)
-          .sort((a, b) => b.wait_time - a.wait_time);
+          .sort((a, b) => a.name.localeCompare(b.name));
         return {
           ...park,
           score,

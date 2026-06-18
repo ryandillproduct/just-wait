@@ -35,23 +35,23 @@ export default function Home() {
   return (
     <main className="min-h-screen px-4 py-12 max-w-2xl mx-auto">
       <header className="mb-12 text-center">
-        <h1 className="font-playfair text-5xl font-bold text-white tracking-tight">
+        <h1 className="font-playfair text-5xl font-bold text-[#1C1008] tracking-tight">
           Just Wait
         </h1>
-        <p className="mt-2 text-white/50 text-lg tracking-wide">
+        <p className="mt-2 text-[#8B7355] text-lg tracking-wide">
           Know before you go.
         </p>
       </header>
 
       {loading && (
         <div className="flex justify-center items-center py-24">
-          <span className="text-white/40 text-sm animate-pulse">Loading parks…</span>
+          <span className="text-[#B5A898] text-sm animate-pulse">Loading parks…</span>
         </div>
       )}
 
       {error && !loading && (
         <div className="text-center py-24">
-          <p className="text-white/40 text-sm">
+          <p className="text-[#B5A898] text-sm">
             Unable to load wait times. Please try again shortly.
           </p>
         </div>
@@ -70,13 +70,13 @@ export default function Home() {
         </div>
       )}
 
-      <footer className="mt-16 text-center text-white/20 text-xs">
+      <footer className="mt-16 text-center text-[#C4B49A] text-xs">
         Wait times via{' '}
         <a
           href="https://queue-times.com"
           target="_blank"
           rel="noopener noreferrer"
-          className="underline hover:text-white/40 transition-colors"
+          className="underline hover:text-[#8B7355] transition-colors"
         >
           queue-times.com
         </a>
