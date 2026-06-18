@@ -50,7 +50,7 @@ export function ParkCard({ park, headlinerNames }: Props) {
       {expanded && (
         <div className="px-5 pb-5">
           <div className="border-t border-black/[0.06] pt-4">
-            <RideList rides={park.rides} headlinerNames={headlinerNames} />
+            <RideList rides={park.rides} headlinerNames={headlinerNames} showtimesUrl={park.showtimesUrl} />
           </div>
         </div>
       )}

@@ -20,6 +20,7 @@ export interface ParkMeta {
   id: number;
   name: string;
   silhouetteKey: 'magic-kingdom' | 'epcot' | 'hollywood-studios' | 'animal-kingdom';
+  showtimesUrl: string;
 }
 
 export interface ScoredPark extends ParkMeta {

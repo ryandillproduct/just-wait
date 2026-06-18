@@ -3,9 +3,10 @@ import { Ride } from '@/types';
 interface Props {
   rides: Ride[];
   headlinerNames: string[];
+  showtimesUrl: string;
 }
 
-export function RideList({ rides, headlinerNames }: Props) {
+export function RideList({ rides, headlinerNames, showtimesUrl }: Props) {
   function isHeadliner(rideName: string): boolean {
     return headlinerNames.some((h) =>
       rideName.toLowerCase().includes(h.toLowerCase())
@@ -31,8 +32,20 @@ export function RideList({ rides, headlinerNames }: Props) {
             )}
             <span className="truncate">{ride.name}</span>
           </span>
-          <span className="text-sm font-semibold text-[#8B7355] tabular-nums flex-shrink-0 ml-3">
-            {ride.isShow ? '—' : `${ride.wait_time} min`}
+          <span className="text-sm font-semibold flex-shrink-0 ml-3">
+            {ride.isShow ? (
+              <a
+                href={showtimesUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#8B7355] underline underline-offset-2 hover:text-[#5C4A2A] transition-colors"
+                onClick={(e) => e.stopPropagation()}
+              >
+                Showtimes ↗
+              </a>
+            ) : (
+              <span className="text-[#8B7355] tabular-nums">{ride.wait_time} min</span>
+            )}
           </span>
         </li>
       ))}
