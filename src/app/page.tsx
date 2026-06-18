@@ -38,10 +38,10 @@ export default function Home() {
         <h1 className="font-playfair text-5xl font-bold text-[#1C1008] tracking-tight">
           Just Wait
         </h1>
-        <p className="mt-2 text-[#8B7355] text-base tracking-wide">
+        <p className="mt-2 text-[#8B7355] text-xl font-medium tracking-wide">
           Live park crowd levels.
         </p>
-        <p className="mt-3 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#F5C842]/15 text-[#8B7355] text-sm">
+        <p className="mt-3 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#F5C842]/15 text-[#8B7355] text-xs">
           <span className="text-base" aria-hidden="true">👆</span>
           Tap a park for attraction wait times
         </p>
