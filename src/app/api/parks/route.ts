@@ -78,7 +78,11 @@ export async function GET() {
               r.name.toLowerCase().includes(a.name.toLowerCase())
             );
             if (!config) return null;
-            return { ...r, isShow: config.isShow };
+            return {
+              ...r,
+              name: config.displayName ?? r.name,
+              isShow: config.isShow,
+            };
           })
           .filter((r): r is NonNullable<typeof r> => r !== null)
           .sort((a, b) => a.name.localeCompare(b.name));

@@ -1,6 +1,7 @@
 export interface AttractionConfig {
   name: string; // partial match key against queue-times.com ride names
   isShow: boolean;
+  displayName?: string; // override the API name for display
 }
 
 export const ATTRACTIONS: Record<number, AttractionConfig[]> = {
@@ -22,7 +23,8 @@ export const ATTRACTIONS: Record<number, AttractionConfig[]> = {
     { name: 'Magic Carpets of Aladdin', isShow: false },
     { name: 'Winnie the Pooh', isShow: false },
     { name: 'Meet Ariel', isShow: false },
-    { name: 'Princess Fairytale Hall', isShow: false },
+    { name: 'Meet Cinderella', isShow: false, displayName: 'Meet Cinderella and Tiana' },
+    { name: 'Visiting Princesses', isShow: false, displayName: 'Meet Visiting Princesses' },
     { name: 'Town Square Theater', isShow: false },
     { name: 'PhilharMagic', isShow: false },
     { name: 'Laugh Floor', isShow: false },
@@ -34,9 +36,9 @@ export const ATTRACTIONS: Record<number, AttractionConfig[]> = {
     { name: 'Swiss Family Treehouse', isShow: false },
     { name: 'Bayou Adventure', isShow: false },
     { name: 'Tomorrowland Speedway', isShow: false },
-    { name: 'PeopleMover', isShow: false },
+    { name: 'PeopleMover', isShow: false, displayName: 'Tomorrowland PeopleMover' },
     { name: 'TRON', isShow: false },
-    { name: 'Journey of the Little Mermaid', isShow: false },
+    { name: 'Journey of the Little Mermaid', isShow: false, displayName: 'Under the Sea' },
     { name: 'Carousel of Progress', isShow: false },
     { name: 'Enchanted Tiki Room', isShow: false },
   ],
@@ -67,19 +69,19 @@ export const ATTRACTIONS: Record<number, AttractionConfig[]> = {
   ],
   7: [ // Hollywood Studios
     { name: 'Alien Swirling Saucers', isShow: false },
-    { name: 'Beauty and the Beast', isShow: true },
+    { name: 'Beauty and the Beast', isShow: true, displayName: 'Beauty and the Beast – Live' },
     { name: 'Disney Junior', isShow: true },
     { name: 'Disney Villains', isShow: true },
-    { name: 'Frozen Sing-Along', isShow: true },
+    { name: 'Frozen Sing-Along', isShow: true, displayName: 'For the First Time in Forever' },
     { name: 'Indiana Jones', isShow: true },
-    { name: 'Little Mermaid', isShow: true },
+    { name: 'Little Mermaid', isShow: true, displayName: 'The Little Mermaid - Musical' },
     { name: 'Meet Ariel', isShow: false },
     { name: 'Red Carpet Dreams', isShow: false },
-    { name: 'Edna Mode', isShow: false },
+    { name: 'Edna Mode', isShow: false, displayName: 'Meet Edna Mode' },
     { name: 'Olaf', isShow: false },
     { name: 'Runaway Railway', isShow: false },
     { name: "Millennium Falcon", isShow: false },
-    { name: 'Roller Coaster', isShow: false },
+    { name: 'Roller Coaster', isShow: false, displayName: "Rock 'n' Roller Coaster" },
     { name: 'Slinky Dog Dash', isShow: false },
     { name: 'Star Tours', isShow: false },
     { name: 'Rise of the Resistance', isShow: false },
@@ -88,11 +90,11 @@ export const ATTRACTIONS: Record<number, AttractionConfig[]> = {
   ],
   8: [ // Animal Kingdom
     { name: 'Flight of Passage', isShow: false },
-    { name: "Bluey", isShow: true },
-    { name: 'Expedition Everest', isShow: false },
+    { name: 'Bluey', isShow: true, displayName: "Bluey's Wild World" },
+    { name: 'Expedition Everest', isShow: false, displayName: 'Expedition Everest' },
     { name: 'Feather Friends', isShow: true },
     { name: 'Festival of the Lion King', isShow: true },
-    { name: 'Finding Nemo', isShow: true },
+    { name: 'Finding Nemo', isShow: true, displayName: 'Finding Nemo: The Big Blue' },
     { name: 'Gorilla Falls', isShow: false },
     { name: 'Kali River Rapids', isShow: false },
     { name: 'Kilimanjaro Safaris', isShow: false },
