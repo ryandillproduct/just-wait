@@ -1,14 +1,16 @@
 'use client';
 
 import { useEffect, useState, useCallback } from 'react';
-import { ApiResponse, ScoredPark } from '@/types';
+import { ApiResponse, ScoredPark, Recommendation } from '@/types';
 import { HEADLINERS } from '@/config/headliners';
 import { ParkCard } from '@/components/ParkCard';
+import { RecommendedBanner } from '@/components/RecommendedBanner';
 
 const REFRESH_INTERVAL_MS = 5 * 60 * 1000; // 5 minutes
 
 export default function Home() {
   const [parks, setParks] = useState<ScoredPark[]>([]);
+  const [recommendation, setRecommendation] = useState<Recommendation | null>(null);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -18,6 +20,7 @@ export default function Home() {
       if (!res.ok) throw new Error('API error');
       const data: ApiResponse = await res.json();
       setParks(data.parks);
+      setRecommendation(data.recommendation);
       setError(false);
     } catch {
       setError(true);
@@ -34,7 +37,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen px-4 py-12 max-w-2xl mx-auto">
-      <header className="mb-12 text-center">
+      <header className="mb-8 text-center">
         <h1 className="font-playfair text-5xl font-bold text-[#1C1008] tracking-tight">
           Just Wait
         </h1>
@@ -62,16 +65,19 @@ export default function Home() {
       )}
 
       {!loading && !error && (
-        <div className="space-y-4">
-          {parks.map((park, index) => (
-            <ParkCard
-              key={park.id}
-              park={park}
-              isBest={index === 0}
-              headlinerNames={HEADLINERS[park.id] ?? []}
-            />
-          ))}
-        </div>
+        <>
+          <RecommendedBanner recommendation={recommendation} />
+          <div className="space-y-4">
+            {parks.map((park, index) => (
+              <ParkCard
+                key={park.id}
+                park={park}
+                isBest={index === 0}
+                headlinerNames={HEADLINERS[park.id] ?? []}
+              />
+            ))}
+          </div>
+        </>
       )}
 
     </main>

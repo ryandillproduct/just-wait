@@ -30,8 +30,19 @@ export interface ScoredPark extends ParkMeta {
   rides: Ride[];
   hours: string | null;
   isOpen: boolean;
+  minutesUntilClose: number | null;
+  avgWaitMinutes: number;
+}
+
+export interface Recommendation {
+  parkId: number;
+  parkName: string;
+  avgWaitMinutes: number;
+  minutesUntilClose: number | null;
+  summary: string;
 }
 
 export interface ApiResponse {
   parks: ScoredPark[];
+  recommendation: Recommendation | null;
 }

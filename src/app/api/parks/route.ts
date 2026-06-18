@@ -4,7 +4,7 @@ import { calculateParkScore, scoreLabel } from '@/lib/scoring';
 import { PARKS } from '@/config/parks';
 import { HEADLINERS } from '@/config/headliners';
 import { ATTRACTIONS } from '@/config/attractions';
-import { ScoredPark } from '@/types';
+import { ScoredPark, Recommendation } from '@/types';
 
 export const dynamic = 'force-static';
 export const revalidate = 300;
@@ -22,6 +22,14 @@ function formatHours(opening: string, closing: string): string {
   return `${fmt(opening)} – ${fmt(closing)}`;
 }
 
+function formatTimeUntilClose(minutes: number): string {
+  if (minutes < 60) return `${minutes} min`;
+  const hrs = Math.floor(minutes / 60);
+  const mins = minutes % 60;
+  if (mins === 0) return `${hrs} hr${hrs > 1 ? 's' : ''}`;
+  return `${hrs} hr ${mins} min`;
+}
+
 interface ScheduleEntry {
   date: string;
   type: string;
@@ -32,37 +40,68 @@ interface ScheduleEntry {
 interface ParkSchedule {
   hours: string | null;
   isOpen: boolean;
+  minutesUntilClose: number | null;
 }
 
 async function fetchParkSchedule(themeParksId: string): Promise<ParkSchedule> {
   try {
     const res = await fetch(`https://api.themeparks.wiki/v1/entity/${themeParksId}/schedule`);
-    if (!res.ok) return { hours: null, isOpen: false };
+    if (!res.ok) return { hours: null, isOpen: false, minutesUntilClose: null };
     const data = await res.json();
     const today = new Date().toLocaleDateString('en-CA', { timeZone: 'America/New_York' });
     const operating = data.schedule?.find(
       (s: ScheduleEntry) => s.date === today && s.type === 'OPERATING'
     ) as ScheduleEntry | undefined;
-    if (!operating) return { hours: null, isOpen: false };
+    if (!operating) return { hours: null, isOpen: false, minutesUntilClose: null };
 
     const nowMs = Date.now();
     const openMs = new Date(operating.openingTime).getTime();
     const closeMs = new Date(operating.closingTime).getTime();
+    const isOpen = nowMs >= openMs && nowMs < closeMs;
+    const minutesUntilClose = isOpen ? Math.round((closeMs - nowMs) / 60000) : null;
 
     return {
       hours: formatHours(operating.openingTime, operating.closingTime),
-      isOpen: nowMs >= openMs && nowMs < closeMs,
+      isOpen,
+      minutesUntilClose,
     };
   } catch {
-    return { hours: null, isOpen: false };
+    return { hours: null, isOpen: false, minutesUntilClose: null };
   }
+}
+
+function buildRecommendation(parks: ScoredPark[]): Recommendation | null {
+  const eligible = parks.filter((p) => p.isOpen);
+  if (eligible.length === 0) return null;
+
+  // Parks are already sorted: open first, then by score ascending — first eligible is best
+  const best = eligible[0];
+  const avg = best.avgWaitMinutes;
+  const mins = best.minutesUntilClose;
+
+  let summary: string;
+  if (mins !== null && mins < 60) {
+    summary = `${best.name} has the best crowd levels right now — avg ${avg} min wait with only ~${formatTimeUntilClose(mins)} left, but still worth it.`;
+  } else if (mins !== null) {
+    summary = `${best.name} has the best crowd levels right now — avg ${avg} min wait with ~${formatTimeUntilClose(mins)} until close.`;
+  } else {
+    summary = `${best.name} has the best crowd levels right now — avg ${avg} min wait.`;
+  }
+
+  return {
+    parkId: best.id,
+    parkName: best.name,
+    avgWaitMinutes: avg,
+    minutesUntilClose: mins,
+    summary,
+  };
 }
 
 export async function GET() {
   try {
     const results = await Promise.all(
       PARKS.map(async (park): Promise<ScoredPark> => {
-        const [allRides, { hours, isOpen }] = await Promise.all([
+        const [allRides, { hours, isOpen, minutesUntilClose }] = await Promise.all([
           fetchParkRides(park.id),
           fetchParkSchedule(park.themeParksId),
         ]);
@@ -90,6 +129,11 @@ export async function GET() {
         const ridesForScoring = curated.filter((r) => !r.isShow && r.is_open);
         const score = calculateParkScore(ridesForScoring, HEADLINERS[park.id] ?? []);
 
+        const openRides = curated.filter((r) => !r.isShow && r.is_open);
+        const avgWaitMinutes = openRides.length > 0
+          ? Math.round(openRides.reduce((sum, r) => sum + r.wait_time, 0) / openRides.length)
+          : 0;
+
         return {
           ...park,
           score,
@@ -97,6 +141,8 @@ export async function GET() {
           rides: curated,
           hours,
           isOpen,
+          minutesUntilClose,
+          avgWaitMinutes,
         };
       })
     );
@@ -105,7 +151,10 @@ export async function GET() {
       if (a.isOpen !== b.isOpen) return a.isOpen ? -1 : 1;
       return a.score - b.score;
     });
-    return NextResponse.json({ parks: sorted });
+
+    const recommendation = buildRecommendation(sorted);
+
+    return NextResponse.json({ parks: sorted, recommendation });
   } catch (err) {
     console.error('Failed to fetch park data:', err);
     return NextResponse.json({ error: 'Failed to load park data' }, { status: 502 });
