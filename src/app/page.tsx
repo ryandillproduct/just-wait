@@ -37,6 +37,15 @@ export default function Home() {
 
   return (
     <main className="min-h-screen px-4 pt-4 pb-12 max-w-2xl mx-auto">
+      <header className="mb-4 flex items-baseline justify-between">
+        <h1 className="font-playfair text-xl font-semibold text-[#1C1008] tracking-tight">
+          WhichPark?
+        </h1>
+        <p className="text-xs text-[#B5A898] tracking-wide">
+          The question isn&apos;t if. It&apos;s where.
+        </p>
+      </header>
+
       {loading && (
         <div className="flex justify-center items-center py-24">
           <span className="text-[#B5A898] text-sm animate-pulse">Loading parks…</span>
