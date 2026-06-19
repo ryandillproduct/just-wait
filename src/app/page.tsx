@@ -36,18 +36,11 @@ export default function Home() {
   }, [loadParks]);
 
   return (
-    <main className="min-h-screen px-4 py-12 max-w-2xl mx-auto">
-      <header className="mb-8 text-center">
-        <h1 className="font-playfair text-5xl font-bold text-[#1C1008] tracking-tight">
+    <main className="min-h-screen px-4 pt-8 pb-12 max-w-2xl mx-auto">
+      <header className="mb-6 text-center">
+        <h1 className="font-playfair text-2xl font-semibold text-[#8B7355] tracking-tight">
           Just Wait
         </h1>
-        <p className="mt-2 text-[#8B7355] text-xl font-medium tracking-wide">
-          Live park crowd levels.
-        </p>
-        <p className="mt-3 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#F5C842]/15 text-[#8B7355] text-xs">
-          <span className="text-base" aria-hidden="true">👆</span>
-          Tap a park for attraction wait times
-        </p>
       </header>
 
       {loading && (
@@ -67,6 +60,16 @@ export default function Home() {
       {!loading && !error && (
         <>
           <RecommendedBanner recommendation={recommendation} />
+
+          <p className="mt-4 mb-6 text-center inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#F5C842]/15 text-[#8B7355] text-xs w-full justify-center">
+            <span className="text-base" aria-hidden="true">👆</span>
+            Tap a park for attraction wait times
+          </p>
+
+          <p className="text-xs font-semibold text-[#8B7355] uppercase tracking-widest mb-3">
+            Live park crowd levels
+          </p>
+
           <div className="space-y-4">
             {parks.map((park, index) => (
               <ParkCard
@@ -79,7 +82,6 @@ export default function Home() {
           </div>
         </>
       )}
-
     </main>
   );
 }

@@ -81,11 +81,11 @@ function buildRecommendation(parks: ScoredPark[]): Recommendation | null {
 
   let summary: string;
   if (mins !== null && mins < 60) {
-    summary = `${best.name} has the best crowd levels right now — avg ${avg} min wait with only ~${formatTimeUntilClose(mins)} left, but still worth it.`;
+    summary = `${best.name} has the lowest crowds right now, with a ${avg} min average wait and only ~${formatTimeUntilClose(mins)} until close.`;
   } else if (mins !== null) {
-    summary = `${best.name} has the best crowd levels right now — avg ${avg} min wait with ~${formatTimeUntilClose(mins)} until close.`;
+    summary = `${best.name} has the lowest crowds right now, with a ${avg} min average wait and about ${formatTimeUntilClose(mins)} until close.`;
   } else {
-    summary = `${best.name} has the best crowd levels right now — avg ${avg} min wait.`;
+    summary = `${best.name} has the lowest crowds right now, with a ${avg} min average wait.`;
   }
 
   return {

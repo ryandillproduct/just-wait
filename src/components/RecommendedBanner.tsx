@@ -16,7 +16,7 @@ export function RecommendedBanner({ recommendation }: Props) {
   return (
     <div className="mb-6 px-5 py-4 rounded-2xl bg-[#FDF3D6] border border-[#F5C842]/30">
       <p className="text-xs font-semibold text-[#8B6914] tracking-widest uppercase mb-1">
-        🏆 Best Park Right Now
+        🏆 Best Park to Visit Right Now
       </p>
       <p className="font-playfair text-2xl font-bold text-[#1C1008]">
         {recommendation.parkName}
