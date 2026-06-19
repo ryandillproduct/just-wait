@@ -38,12 +38,12 @@ export default function Home() {
   return (
     <main className="min-h-screen px-4 pt-4 pb-12 max-w-2xl mx-auto">
       <header className="mb-4 flex items-center justify-between">
+        <p className="text-xs text-[#B5A898] tracking-wide">
+          WhichPark?
+        </p>
         <div className="w-8 h-8 rounded-lg bg-[#F5C842] flex items-center justify-center flex-shrink-0">
           <span className="font-serif text-lg font-bold text-[#1C1008] leading-none mt-0.5">?</span>
         </div>
-        <p className="text-xs text-[#B5A898] tracking-wide">
-          The question isn&apos;t if. It&apos;s where.
-        </p>
       </header>
 
       {loading && (
