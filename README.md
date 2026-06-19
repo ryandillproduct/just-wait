@@ -1,36 +1,47 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Where Should I Go?
 
-## Getting Started
+Real-time Disney World park recommendations for locals, Annual Passholders, and frequent visitors.
 
-First, run the development server:
+Most Disney planning tools are built for vacationers planning months in advance.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+This app is built for the people who visit often.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The question isn't whether you should go to Disney today. The question is where you should go.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Using current park conditions, crowd levels, and attraction wait times, the app helps you quickly decide which park offers the best experience right now.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Features
 
-## Learn More
+* Real-time park recommendations
+* Live attraction wait times
+* Park crowd insights
+* Mobile-first experience
+* Designed specifically for Disney World locals and Annual Passholders
 
-To learn more about Next.js, take a look at the following resources:
+## Why I Built This
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+As a local Disney World Annual Passholder, I found myself asking the same question before heading to property:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+"Which park should I go to today?"
 
-## Deploy on Vercel
+Checking wait times across multiple parks and trying to determine which park would offer the best experience was time-consuming and often led to guesswork.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This project simplifies that decision by turning live park data into a clear recommendation.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Who It's For
+
+* Disney World Annual Passholders
+* Central Florida locals
+* Frequent Disney visitors
+* Anyone making same-day park decisions
+
+## Tech Stack
+
+* Next.js
+* React
+* TypeScript
+* Tailwind CSS
+
+## Disclaimer
+
+This project is an independent fan-created application and is not affiliated with, endorsed by, or sponsored by The Walt Disney Company.
