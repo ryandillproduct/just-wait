@@ -69,6 +69,7 @@ export const ATTRACTIONS: Record<number, AttractionConfig[]> = {
   ],
   7: [ // Hollywood Studios
     { name: 'Alien Swirling Saucers', isShow: false },
+    { name: 'Fantasmic', isShow: true },
     { name: 'Beauty and the Beast', isShow: true, displayName: 'Beauty and the Beast – Live' },
     { name: 'Disney Junior', isShow: true },
     { name: 'Disney Villains', isShow: true },
