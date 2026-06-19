@@ -34,24 +34,24 @@ export default function OgImage() {
         {/* Logo mark */}
         <div
           style={{
-            width: 140,
-            height: 140,
-            borderRadius: 32,
+            width: 160,
+            height: 160,
+            borderRadius: 36,
             backgroundColor: '#F5C842',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            marginBottom: 36,
+            marginBottom: 32,
           }}
         >
           <span
             style={{
               fontFamily: 'Georgia, serif',
-              fontSize: 100,
+              fontSize: 112,
               fontWeight: 700,
               color: '#1C1008',
               lineHeight: 1,
-              marginTop: 10,
+              marginTop: 12,
             }}
           >
             ?
@@ -62,7 +62,7 @@ export default function OgImage() {
         <div
           style={{
             fontFamily: 'Georgia, serif',
-            fontSize: 110,
+            fontSize: 100,
             fontWeight: 700,
             color: '#1C1008',
             lineHeight: 1,
@@ -76,29 +76,55 @@ export default function OgImage() {
         <div
           style={{
             fontFamily: 'Georgia, serif',
-            fontSize: 32,
+            fontSize: 28,
             fontWeight: 400,
             color: '#8B7355',
-            marginTop: 24,
+            marginTop: 20,
             letterSpacing: '0.5px',
           }}
         >
           The question isn't if. It's where.
         </div>
 
-        {/* Domain */}
+        {/* CTA */}
         <div
           style={{
-            position: 'absolute',
-            bottom: 44,
-            right: 80,
-            fontFamily: 'sans-serif',
-            fontSize: 18,
-            color: '#C4B49A',
-            letterSpacing: '3px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 10,
+            marginTop: 36,
+            backgroundColor: '#F5C842',
+            borderRadius: 50,
+            paddingTop: 16,
+            paddingBottom: 16,
+            paddingLeft: 32,
+            paddingRight: 32,
           }}
         >
-          WHICHPARK.COM
+          <span style={{ fontSize: 26 }}>🏆</span>
+          <span
+            style={{
+              fontFamily: 'sans-serif',
+              fontSize: 26,
+              fontWeight: 700,
+              color: '#1C1008',
+              letterSpacing: '-0.3px',
+            }}
+          >
+            Best Park to Visit Right Now
+          </span>
+        </div>
+
+        {/* Sub-CTA */}
+        <div
+          style={{
+            fontFamily: 'sans-serif',
+            fontSize: 20,
+            color: '#B5A898',
+            marginTop: 16,
+          }}
+        >
+          Tap to see the current recommendation
         </div>
       </div>
     ),

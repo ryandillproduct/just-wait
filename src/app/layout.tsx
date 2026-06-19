@@ -8,10 +8,17 @@ const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfa
 
 export const metadata: Metadata = {
   title: 'WhichPark?',
-  description: "The question isn't if. It's where. Live Walt Disney World crowd levels for locals and Annual Passholders.",
+  description: 'Real-time park recommendations for Disney World locals and Annual Passholders.',
   openGraph: {
-    title: 'WhichPark?',
-    description: "The question isn't if. It's where. Live Walt Disney World crowd levels for locals and Annual Passholders.",
+    title: 'WhichPark? | Best Park to Visit Right Now',
+    description: 'Real-time park recommendations for Disney World locals and Annual Passholders.',
+    siteName: 'WhichPark?',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'WhichPark? | Best Park to Visit Right Now',
+    description: 'Real-time park recommendations for Disney World locals and Annual Passholders.',
   },
 };
 
