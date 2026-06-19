@@ -70,11 +70,31 @@ async function fetchParkSchedule(themeParksId: string): Promise<ParkSchedule> {
   }
 }
 
-function recommendationScore(score: number, minutesUntilClose: number | null): number {
-  if (minutesUntilClose === null || minutesUntilClose >= 300) return score;
-  if (minutesUntilClose >= 180) return score + 1;
-  if (minutesUntilClose >= 60)  return score + 3;
-  return score + 6;
+// Park IDs: MK = 6, EPCOT = 5, Hollywood Studios = 7, Animal Kingdom = 8
+function recommendationScore(score: number, park: ScoredPark): number {
+  let adjusted = score;
+
+  // Time-until-close penalty
+  const mins = park.minutesUntilClose;
+  if (mins !== null && mins < 300) {
+    if (mins >= 180)     adjusted += 1;
+    else if (mins >= 60) adjusted += 3;
+    else                 adjusted += 6;
+  }
+
+  // MK transportation friction penalty — no direct parking for locals
+  if (park.id === 6) adjusted += 2;
+
+  // Hollywood Studios show-value boost before 5 PM Eastern
+  if (park.id === 7) {
+    const hourET = parseInt(
+      new Date().toLocaleString('en-US', { timeZone: 'America/New_York', hour: 'numeric', hour12: false }),
+      10
+    );
+    if (hourET < 17) adjusted -= 1;
+  }
+
+  return adjusted;
 }
 
 function buildRecommendation(parks: ScoredPark[]): Recommendation | null {
@@ -82,9 +102,7 @@ function buildRecommendation(parks: ScoredPark[]): Recommendation | null {
   if (eligible.length === 0) return null;
 
   const best = [...eligible].sort(
-    (a, b) =>
-      recommendationScore(a.score, a.minutesUntilClose) -
-      recommendationScore(b.score, b.minutesUntilClose)
+    (a, b) => recommendationScore(a.score, a) - recommendationScore(b.score, b)
   )[0];
 
   const avg = best.avgWaitMinutes;
