@@ -53,28 +53,29 @@ export function ParkCard({ park, headlinerNames }: Props) {
           <p className={`font-playfair text-lg font-semibold truncate ${park.isOpen ? 'text-[#1C1008]' : 'text-[#B5A898]'}`}>
             {park.name}
           </p>
-          <div className="flex items-center justify-between mt-0.5">
-            {(park.hours || !park.isOpen) && (
-              <p className="text-xs text-[#B5A898]">
-                {park.isOpen ? park.hours : park.hours ? `Closed · ${park.hours}` : 'Closed'}
-              </p>
-            )}
-            {park.isOpen && park.avgWaitMinutes > 0 && (
-              <p className="text-xs text-[#B5A898]">{park.avgWaitMinutes} min avg wait</p>
-            )}
-          </div>
+          {(park.hours || !park.isOpen) && (
+            <p className="text-xs text-[#B5A898] mt-0.5">
+              {park.isOpen ? park.hours : park.hours ? `Closed · ${park.hours}` : 'Closed'}
+            </p>
+          )}
           <div className="mt-2 w-full h-1.5 rounded-full bg-[#EDE8E1] overflow-hidden">
             <div
               className="h-full rounded-full transition-all duration-500"
               style={{ width: `${fillPercent}%`, backgroundColor: park.isOpen ? barColor : 'transparent' }}
             />
           </div>
+          <p className="text-xs text-[#B5A898] mt-1">crowd level</p>
         </div>
       </button>
 
       {expanded && (
         <div className="px-5 pb-5">
           <div className="border-t border-black/[0.06] pt-4">
+            {park.isOpen && park.avgWaitMinutes > 0 && (
+              <p className="text-xs text-[#B5A898] mb-3">
+                <span className="font-semibold text-[#8B7355]">{park.avgWaitMinutes} min</span> avg wait across open attractions
+              </p>
+            )}
             <RideList rides={park.rides} headlinerNames={headlinerNames} showtimesUrl={park.showtimesUrl} />
           </div>
         </div>
