@@ -108,16 +108,21 @@ function buildRecommendation(parks: ScoredPark[]): Recommendation | null {
   const avg = best.avgWaitMinutes;
   const mins = best.minutesUntilClose;
 
-  // Check if MK is open with shorter waits but wasn't recommended due to friction penalty
   const mk = eligible.find((p) => p.id === 6);
+  const hasLowestWaits = eligible.every((p) => p.id === best.id || best.avgWaitMinutes <= p.avgWaitMinutes);
   const mkHasShorterWaits = mk && best.id !== 6 && mk.avgWaitMinutes < avg;
   const mkNote = mkHasShorterWaits
     ? ` Magic Kingdom has shorter waits right now but requires extra transportation to reach.`
     : '';
 
-  const opener = mkHasShorterWaits
-    ? `${best.name} is the easiest park to get into right now`
-    : `${best.name} has the lowest crowds right now`;
+  let opener: string;
+  if (hasLowestWaits) {
+    opener = `${best.name} has the lowest crowds right now`;
+  } else if (mkHasShorterWaits) {
+    opener = `${best.name} is the easiest park to get into right now`;
+  } else {
+    opener = `${best.name} is our top pick right now`;
+  }
 
   let summary: string;
   if (mins !== null && mins < 60) {
