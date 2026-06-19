@@ -60,7 +60,7 @@ export function ParkCard({ park, headlinerNames }: Props) {
               </p>
             )}
             {park.isOpen && park.avgWaitMinutes > 0 && (
-              <p className="text-xs text-[#B5A898]">avg {park.avgWaitMinutes} min wait</p>
+              <p className="text-xs text-[#B5A898]">{park.avgWaitMinutes} min avg wait</p>
             )}
           </div>
           <div className="mt-2 w-full h-1.5 rounded-full bg-[#EDE8E1] overflow-hidden">
