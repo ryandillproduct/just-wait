@@ -69,7 +69,7 @@ export default function Home() {
               Live park crowd levels
             </p>
             <p className="mt-0.5 text-xs text-[#B5A898]">
-              Select a park to view attraction and average wait times
+              Tap a park to see attraction wait times
             </p>
           </div>
 
