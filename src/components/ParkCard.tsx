@@ -38,7 +38,12 @@ export function ParkCard({ park, rank, headlinerNames }: Props) {
   const barColor = goScoreBarColor(park.goScore);
 
   return (
-    <div className="rounded-2xl bg-white border border-black/[0.06] shadow-sm overflow-hidden">
+    <div className="relative rounded-2xl bg-white border border-black/[0.06] shadow-sm overflow-hidden">
+      {rank !== null && (
+        <div className="absolute top-2 left-2 w-6 h-6 rounded-full bg-[#F5C842] flex items-center justify-center z-10">
+          <span className="text-xs font-bold text-[#1C1008] leading-none">{rank}</span>
+        </div>
+      )}
       <button
         onClick={() => setExpanded((v) => !v)}
         className="w-full text-left p-5 flex items-center gap-4"
@@ -51,9 +56,6 @@ export function ParkCard({ park, rank, headlinerNames }: Props) {
         />
         <div className="flex-1 min-w-0">
           <div className="flex items-baseline gap-2">
-            {rank !== null && (
-              <span className="text-xs font-semibold text-[#C4B49A] flex-shrink-0">#{rank}</span>
-            )}
             <p className={`font-playfair text-lg font-semibold truncate ${park.isOpen ? 'text-[#1C1008]' : 'text-[#B5A898]'}`}>
               {park.name}
             </p>

@@ -66,7 +66,7 @@ export default function Home() {
 
           <div className="mb-3">
             <p className="text-xs font-semibold text-[#8B7355] uppercase tracking-widest">
-              Live park crowd levels
+              Live Park Rankings by Go Score
             </p>
             <p className="mt-0.5 text-xs text-[#B5A898]">
               Tap a park to see attraction wait times
