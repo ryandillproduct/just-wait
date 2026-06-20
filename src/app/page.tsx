@@ -74,14 +74,20 @@ export default function Home() {
           </div>
 
           <div className="space-y-4">
-            {parks.map((park, index) => (
-              <ParkCard
-                key={park.id}
-                park={park}
-                isBest={index === 0}
-                headlinerNames={HEADLINERS[park.id] ?? []}
-              />
-            ))}
+            {(() => {
+              let openRank = 0;
+              return parks.map((park) => {
+                const rank = park.isOpen ? ++openRank : null;
+                return (
+                  <ParkCard
+                    key={park.id}
+                    park={park}
+                    rank={rank}
+                    headlinerNames={HEADLINERS[park.id] ?? []}
+                  />
+                );
+              });
+            })()}
           </div>
         </>
       )}

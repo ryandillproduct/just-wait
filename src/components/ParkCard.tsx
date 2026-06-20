@@ -7,35 +7,35 @@ import { RideList } from './RideList';
 
 interface Props {
   park: ScoredPark;
-  isBest: boolean;
+  rank: number | null;
   headlinerNames: string[];
 }
 
-// Smoothly interpolate green → amber → red based on 1–10 score
-function scoreBarColor(score: number): string {
+// Green → amber → red for goScore 10→5→0 (higher goScore = greener)
+function goScoreBarColor(goScore: number): string {
   const green = { r: 52, g: 211, b: 153 };
   const amber = { r: 251, g: 191, b: 36 };
   const red   = { r: 251, g: 113, b: 133 };
 
   let r, g, b;
-  if (score <= 5) {
-    const t = (score - 1) / 4;
-    r = Math.round(green.r + t * (amber.r - green.r));
-    g = Math.round(green.g + t * (amber.g - green.g));
-    b = Math.round(green.b + t * (amber.b - green.b));
+  if (goScore >= 5) {
+    const t = (goScore - 5) / 5;
+    r = Math.round(amber.r + t * (green.r - amber.r));
+    g = Math.round(amber.g + t * (green.g - amber.g));
+    b = Math.round(amber.b + t * (green.b - amber.b));
   } else {
-    const t = (score - 5) / 5;
-    r = Math.round(amber.r + t * (red.r - amber.r));
-    g = Math.round(amber.g + t * (red.g - amber.g));
-    b = Math.round(amber.b + t * (red.b - amber.b));
+    const t = goScore / 5;
+    r = Math.round(red.r + t * (amber.r - red.r));
+    g = Math.round(red.g + t * (amber.g - red.g));
+    b = Math.round(red.b + t * (amber.b - red.b));
   }
   return `rgb(${r},${g},${b})`;
 }
 
-export function ParkCard({ park, headlinerNames }: Props) {
+export function ParkCard({ park, rank, headlinerNames }: Props) {
   const [expanded, setExpanded] = useState(false);
-  const fillPercent = park.isOpen ? (park.score / 10) * 100 : 0;
-  const barColor = scoreBarColor(park.score);
+  const fillPercent = park.isOpen ? (park.goScore / 10) * 100 : 0;
+  const barColor = goScoreBarColor(park.goScore);
 
   return (
     <div className="rounded-2xl bg-white border border-black/[0.06] shadow-sm overflow-hidden">
@@ -50,9 +50,14 @@ export function ParkCard({ park, headlinerNames }: Props) {
           style={{ color: park.isOpen ? '#C4B49A' : '#DDD8D0' }}
         />
         <div className="flex-1 min-w-0">
-          <p className={`font-playfair text-lg font-semibold truncate ${park.isOpen ? 'text-[#1C1008]' : 'text-[#B5A898]'}`}>
-            {park.name}
-          </p>
+          <div className="flex items-baseline gap-2">
+            {rank !== null && (
+              <span className="text-xs font-semibold text-[#C4B49A] flex-shrink-0">#{rank}</span>
+            )}
+            <p className={`font-playfair text-lg font-semibold truncate ${park.isOpen ? 'text-[#1C1008]' : 'text-[#B5A898]'}`}>
+              {park.name}
+            </p>
+          </div>
           {(park.hours || !park.isOpen) && (
             <p className="text-xs text-[#B5A898] mt-0.5">
               {park.isOpen ? park.hours : park.hours ? `Closed · ${park.hours}` : 'Closed'}
@@ -64,7 +69,7 @@ export function ParkCard({ park, headlinerNames }: Props) {
               style={{ width: `${fillPercent}%`, backgroundColor: park.isOpen ? barColor : 'transparent' }}
             />
           </div>
-          <p className="text-xs text-[#B5A898] mt-1">crowd level</p>
+          <p className="text-xs text-[#B5A898] mt-1">{park.isOpen ? 'Go Score' : 'crowd level'}</p>
         </div>
       </button>
 

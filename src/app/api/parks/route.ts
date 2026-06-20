@@ -186,9 +186,16 @@ export async function GET() {
       return recommendationScore(a.score, a) - recommendationScore(b.score, b);
     });
 
-    const recommendation = buildRecommendation(sorted);
+    const withGoScore = sorted.map((park) => ({
+      ...park,
+      goScore: park.isOpen
+        ? Math.max(0, Math.min(10, 10 - recommendationScore(park.score, park)))
+        : 0,
+    }));
 
-    return NextResponse.json({ parks: sorted, recommendation });
+    const recommendation = buildRecommendation(withGoScore);
+
+    return NextResponse.json({ parks: withGoScore, recommendation });
   } catch (err) {
     console.error('Failed to fetch park data:', err);
     return NextResponse.json({ error: 'Failed to load park data' }, { status: 502 });

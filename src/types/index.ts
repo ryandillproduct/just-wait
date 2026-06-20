@@ -32,6 +32,7 @@ export interface ScoredPark extends ParkMeta {
   isOpen: boolean;
   closingTimeMs: number | null;
   avgWaitMinutes: number;
+  goScore: number;
 }
 
 export interface Recommendation {
