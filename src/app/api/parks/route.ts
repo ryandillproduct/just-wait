@@ -177,6 +177,7 @@ export async function GET() {
           isOpen,
           closingTimeMs,
           avgWaitMinutes,
+          goScore: 0, // placeholder — overwritten below after sorting
         };
       })
     );
