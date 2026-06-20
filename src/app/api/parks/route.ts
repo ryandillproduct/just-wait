@@ -104,7 +104,13 @@ function buildRecommendation(parks: ScoredPark[]): Recommendation | null {
 
   let opener: string;
   if (hasLowestCrowdScore) {
-    opener = `${best.name} has the lowest crowds right now`;
+    if (best.score <= 3) {
+      opener = `${best.name} has low crowds right now`;
+    } else if (best.score <= 6) {
+      opener = `${best.name} has moderate crowds right now`;
+    } else {
+      opener = `${best.name} has the best crowd conditions available right now`;
+    }
   } else if (mkHasLowerCrowdScore) {
     opener = `${best.name} is our top pick right now — direct parking gives it the edge over Magic Kingdom's transit-only access`;
   } else {
