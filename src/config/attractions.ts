@@ -58,7 +58,7 @@ export const ATTRACTIONS: Record<number, AttractionConfig[]> = {
     { name: 'Mickey & Friends', isShow: false, displayName: 'Meet Mickey & Friends' },
     { name: 'Meet Anna and Elsa', isShow: false, displayName: 'Meet Anna & Elsa' },
     { name: 'Mission: SPACE', isShow: false },
-    { name: 'Reflections of China', isShow: true },
+    { name: 'Reflections of China', isShow: false },
     { name: "Ratatouille", isShow: false },
     { name: 'Seas with Nemo', isShow: false },
     { name: "Soarin'", isShow: false },
