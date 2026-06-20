@@ -1,4 +1,4 @@
-// Keys match ParkMeta.id. Names must match queue-times.com ride names.
+// Keys match ParkMeta.id. Names must partially match themeparks.wiki ride names.
 // Partial/case-insensitive matching is handled in scoring.ts.
 export const HEADLINERS: Record<number, string[]> = {
   6: [ // Magic Kingdom
@@ -27,6 +27,6 @@ export const HEADLINERS: Record<number, string[]> = {
     "Na'vi River Journey",
     'Expedition Everest',
     'Kilimanjaro Safaris',
-    "Bluey's Wild Ride",
+    "Bluey's Wild World",
   ],
 };

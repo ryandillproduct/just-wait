@@ -1,8 +1,31 @@
-import { Ride, QueueTimesResponse } from '@/types';
+import { Ride } from '@/types';
 
-export async function fetchParkRides(parkId: number): Promise<Ride[]> {
-  const res = await fetch(`https://queue-times.com/parks/${parkId}/queue_times.json`);
-  if (!res.ok) throw new Error(`Failed to fetch park ${parkId}: ${res.status}`);
-  const data: QueueTimesResponse = await res.json();
-  return data.lands.flatMap((land) => land.rides);
+interface ThemeParksLiveEntry {
+  id: string;
+  name: string;
+  entityType: string;
+  status: string;
+  queue?: {
+    STANDBY?: { waitTime: number | null };
+  };
+  lastUpdated: string;
+}
+
+interface ThemeParksLiveResponse {
+  liveData: ThemeParksLiveEntry[];
+}
+
+export async function fetchParkRides(themeParksId: string): Promise<Ride[]> {
+  const res = await fetch(`https://api.themeparks.wiki/v1/entity/${themeParksId}/live`);
+  if (!res.ok) throw new Error(`Failed to fetch park ${themeParksId}: ${res.status}`);
+  const data: ThemeParksLiveResponse = await res.json();
+  return data.liveData
+    .filter((e) => e.entityType === 'ATTRACTION' || e.entityType === 'SHOW')
+    .map((e) => ({
+      id: e.id,
+      name: e.name,
+      is_open: e.status === 'OPERATING',
+      wait_time: e.queue?.STANDBY?.waitTime ?? 0,
+      last_updated: e.lastUpdated ?? '',
+    }));
 }

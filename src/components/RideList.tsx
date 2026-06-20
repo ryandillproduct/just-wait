@@ -21,15 +21,6 @@ export function RideList({ rides, headlinerNames, showtimesUrl }: Props) {
           className="flex items-center justify-between gap-2 px-3 py-2 rounded-lg bg-[#FAF6F0]"
         >
           <span className="flex items-center gap-2 text-sm text-[#1C1008] min-w-0">
-            {isHeadliner(ride.name) && (
-              <span
-                aria-label="Headliner attraction"
-                className="text-[#F5C842] text-xs flex-shrink-0"
-                title="Headliner attraction"
-              >
-                ★
-              </span>
-            )}
             <span className="truncate">{ride.name}</span>
           </span>
           <span className="text-sm font-semibold flex-shrink-0 ml-3">
@@ -43,6 +34,8 @@ export function RideList({ rides, headlinerNames, showtimesUrl }: Props) {
               >
                 Showtimes ↗
               </a>
+            ) : ride.isStatic ? (
+              <span className="text-[#C4B49A] text-xs font-medium">—</span>
             ) : !ride.is_open ? (
               <span className="text-[#C4B49A] text-xs font-medium tracking-wide uppercase">Down</span>
             ) : (

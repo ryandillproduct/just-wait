@@ -123,7 +123,7 @@ export async function GET() {
     const results = await Promise.all(
       PARKS.map(async (park): Promise<ScoredPark> => {
         const [allRides, { hours, isOpen, closingTimeMs }] = await Promise.all([
-          fetchParkRides(park.id),
+          fetchParkRides(park.themeParksId),
           fetchParkSchedule(park.themeParksId),
         ]);
         const attractionConfig = ATTRACTIONS[park.id] ?? [];
@@ -140,7 +140,8 @@ export async function GET() {
             is_open: true,
             wait_time: 0,
             last_updated: '',
-            isShow: true,
+            isShow: a.isShow,
+            isStatic: !a.isShow,
           }));
 
         const curated = [
