@@ -88,13 +88,40 @@ function recommendationScore(score: number, park: ScoredPark): number {
   return adjusted;
 }
 
+// Lower recommendationScore wins. Ties broken by: lower avg wait, then more
+// open attractions, then alphabetical — guarantees a deterministic order.
+function compareParks(a: ScoredPark, b: ScoredPark): number {
+  const scoreDiff = recommendationScore(a.score, a) - recommendationScore(b.score, b);
+  if (scoreDiff !== 0) return scoreDiff;
+
+  const waitDiff = a.avgWaitMinutes - b.avgWaitMinutes;
+  if (waitDiff !== 0) return waitDiff;
+
+  const attractionDiff = b.openAttractionCount - a.openAttractionCount;
+  if (attractionDiff !== 0) return attractionDiff;
+
+  return a.name.localeCompare(b.name);
+}
+
+// Explains why `winner` ranks above `loser` when their recommendationScore tied.
+function tiebreakerReason(winner: ScoredPark, loser: ScoredPark): string | null {
+  if (recommendationScore(winner.score, winner) !== recommendationScore(loser.score, loser)) {
+    return null;
+  }
+  if (winner.avgWaitMinutes !== loser.avgWaitMinutes) {
+    return `Lower average wait than ${loser.name}`;
+  }
+  if (winner.openAttractionCount !== loser.openAttractionCount) {
+    return `More open attractions than ${loser.name}`;
+  }
+  return null;
+}
+
 function buildRecommendation(parks: ScoredPark[]): Recommendation | null {
   const eligible = parks.filter((p) => p.isOpen);
   if (eligible.length === 0) return null;
 
-  const best = [...eligible].sort(
-    (a, b) => recommendationScore(a.score, a) - recommendationScore(b.score, b)
-  )[0];
+  const best = [...eligible].sort(compareParks)[0];
 
   const avg = best.avgWaitMinutes;
 
@@ -178,6 +205,7 @@ export async function GET() {
           isOpen,
           closingTimeMs,
           avgWaitMinutes,
+          openAttractionCount: openRides.length,
           goScore: 0, // placeholder — overwritten below after sorting
         };
       })
@@ -185,15 +213,22 @@ export async function GET() {
 
     const sorted = [...results].sort((a, b) => {
       if (a.isOpen !== b.isOpen) return a.isOpen ? -1 : 1;
-      return recommendationScore(a.score, a) - recommendationScore(b.score, b);
+      return compareParks(a, b);
     });
 
-    const withGoScore = sorted.map((park) => ({
-      ...park,
-      goScore: park.isOpen
-        ? Math.max(0, Math.min(10, 10 - recommendationScore(park.score, park)))
-        : 0,
-    }));
+    const withGoScore = sorted.map((park, i) => {
+      const next = i < sorted.length - 1 ? sorted[i + 1] : null;
+      const tiebreakerNote =
+        park.isOpen && next?.isOpen ? tiebreakerReason(park, next) ?? undefined : undefined;
+
+      return {
+        ...park,
+        goScore: park.isOpen
+          ? Math.max(0, Math.min(10, 10 - recommendationScore(park.score, park)))
+          : 0,
+        tiebreakerNote,
+      };
+    });
 
     const recommendation = buildRecommendation(withGoScore);
 

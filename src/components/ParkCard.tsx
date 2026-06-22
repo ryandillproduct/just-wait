@@ -74,6 +74,9 @@ export function ParkCard({ park, rank, headlinerNames }: Props) {
                 />
               </div>
               <p className="text-xs text-[#B5A898] mt-1">Go Score · {(Math.round(park.goScore * 2) / 2).toFixed(1)}/10</p>
+              {park.tiebreakerNote && (
+                <p className="text-xs text-[#B5A898] mt-0.5 italic">{park.tiebreakerNote}</p>
+              )}
             </>
           )}
         </div>

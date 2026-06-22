@@ -25,6 +25,8 @@ export interface ScoredPark extends ParkMeta {
   closingTimeMs: number | null;
   avgWaitMinutes: number;
   goScore: number;
+  openAttractionCount: number;
+  tiebreakerNote?: string;
 }
 
 export interface Recommendation {
