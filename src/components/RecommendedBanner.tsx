@@ -48,21 +48,21 @@ function SummaryText({ recommendation }: { recommendation: Recommendation }) {
   if (mins !== null && mins < 60) {
     return (
       <>
-        {opener}, with {metrics} and only ~<Highlight>{formatTimeUntilClose(mins)}</Highlight> until close.
+        {opener}, with {metrics}. Only ~<Highlight>{formatTimeUntilClose(mins)}</Highlight> left until close.
       </>
     );
   }
   if (mins !== null && mins < 300) {
     return (
       <>
-        {opener}, with {metrics} and about <Highlight>{formatTimeUntilClose(mins)}</Highlight> until close.
+        {opener}, with {metrics}. About <Highlight>{formatTimeUntilClose(mins)}</Highlight> left until close.
       </>
     );
   }
   if (mins !== null) {
     return (
       <>
-        {opener}, with {metrics} and plenty of time left to enjoy the park.
+        {opener}, with {metrics}. There&apos;s plenty of time left to enjoy the park.
       </>
     );
   }
@@ -77,7 +77,9 @@ export function RecommendedBanner({ recommendation }: Props) {
   if (!recommendation) {
     return (
       <div className="mb-6 px-5 py-4 rounded-2xl bg-[#F5EFE6] text-center">
-        <p className="text-[#B5A898] text-sm">All parks are closed right now.</p>
+        <p className="text-[#B5A898] text-sm">
+          All parks are closed right now. Come back tomorrow for live park rankings.
+        </p>
       </div>
     );
   }

@@ -65,13 +65,17 @@ export function ParkCard({ park, rank, headlinerNames }: Props) {
               {park.isOpen ? park.hours : park.hours ? `Closed · ${park.hours}` : 'Closed'}
             </p>
           )}
-          <div className="mt-2 w-full h-1.5 rounded-full bg-[#EDE8E1] overflow-hidden">
-            <div
-              className="h-full rounded-full transition-all duration-500"
-              style={{ width: `${fillPercent}%`, backgroundColor: park.isOpen ? barColor : 'transparent' }}
-            />
-          </div>
-          <p className="text-xs text-[#B5A898] mt-1">{park.isOpen ? 'Go Score' : 'crowd level'}</p>
+          {park.isOpen && (
+            <>
+              <div className="mt-2 w-full h-1.5 rounded-full bg-[#EDE8E1] overflow-hidden">
+                <div
+                  className="h-full rounded-full transition-all duration-500"
+                  style={{ width: `${fillPercent}%`, backgroundColor: barColor }}
+                />
+              </div>
+              <p className="text-xs text-[#B5A898] mt-1">Go Score · {Math.round(park.goScore)}/10</p>
+            </>
+          )}
         </div>
       </button>
 
