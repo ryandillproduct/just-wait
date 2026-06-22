@@ -73,7 +73,7 @@ export function ParkCard({ park, rank, headlinerNames }: Props) {
                   style={{ width: `${fillPercent}%`, backgroundColor: barColor }}
                 />
               </div>
-              <p className="text-xs text-[#B5A898] mt-1">Go Score · {Math.round(park.goScore)}/10</p>
+              <p className="text-xs text-[#B5A898] mt-1">Go Score · {(Math.round(park.goScore * 2) / 2).toFixed(1)}/10</p>
             </>
           )}
         </div>
