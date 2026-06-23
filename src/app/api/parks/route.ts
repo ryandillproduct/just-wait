@@ -61,16 +61,23 @@ async function fetchParkSchedule(themeParksId: string): Promise<ParkSchedule> {
   }
 }
 
+// Theoretical range of recommendationScore across all parks/conditions, used to
+// rescale the displayed Go Score to a full, intuitive 0-10 spread.
+// Min: crowdScore floor (1) + no time penalty (0) + HS's -1 boost = 0
+// Max: crowdScore ceiling (10) + max time penalty (4) + MK's +1.5 penalty = 15.5
+const RECOMMENDATION_SCORE_MIN = 0;
+const RECOMMENDATION_SCORE_MAX = 15.5;
+
 // Park IDs: MK = 6, EPCOT = 5, Hollywood Studios = 7, Animal Kingdom = 8
 function recommendationScore(score: number, park: ScoredPark): number {
   let adjusted = score;
 
-  // Time-until-close penalty
+  // Time-until-close penalty — only meaningfully kicks in within the final hour
   const mins = park.closingTimeMs !== null ? Math.round((park.closingTimeMs - Date.now()) / 60000) : null;
   if (mins !== null && mins < 300) {
-    if (mins >= 180)     adjusted += 1;
-    else if (mins >= 60) adjusted += 3;
-    else                 adjusted += 6;
+    if (mins >= 180)     adjusted += 0.5;
+    else if (mins >= 60) adjusted += 1.5;
+    else                 adjusted += 4;
   }
 
   // MK transportation friction penalty — no direct parking for locals
@@ -221,11 +228,13 @@ export async function GET() {
       const tiebreakerNote =
         park.isOpen && next?.isOpen ? tiebreakerReason(park, next) ?? undefined : undefined;
 
+      const rawScore = recommendationScore(park.score, park);
+      const normalized =
+        10 * (RECOMMENDATION_SCORE_MAX - rawScore) / (RECOMMENDATION_SCORE_MAX - RECOMMENDATION_SCORE_MIN);
+
       return {
         ...park,
-        goScore: park.isOpen
-          ? Math.max(0, Math.min(10, 10 - recommendationScore(park.score, park)))
-          : 0,
+        goScore: park.isOpen ? Math.max(0, Math.min(10, normalized)) : 0,
         tiebreakerNote,
       };
     });
