@@ -1,10 +1,12 @@
 'use client';
 
 import { useEffect, useState, useCallback } from 'react';
+import Link from 'next/link';
 import { ApiResponse, ScoredPark, Recommendation } from '@/types';
 import { HEADLINERS } from '@/config/headliners';
 import { ParkCard } from '@/components/ParkCard';
 import { RecommendedBanner } from '@/components/RecommendedBanner';
+import { GoScoreInfoModal } from '@/components/GoScoreInfoModal';
 
 const REFRESH_INTERVAL_MS = 5 * 60 * 1000; // 5 minutes
 
@@ -13,6 +15,7 @@ export default function Home() {
   const [recommendation, setRecommendation] = useState<Recommendation | null>(null);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [showGoScoreInfo, setShowGoScoreInfo] = useState(false);
 
   const loadParks = useCallback(async () => {
     try {
@@ -65,13 +68,24 @@ export default function Home() {
           <RecommendedBanner recommendation={recommendation} />
 
           <div className="mb-3">
-            <p className="text-xs font-semibold text-[#8B7355] uppercase tracking-widest">
-              Live Park Rankings by Go Score
-            </p>
+            <div className="flex items-center gap-1.5">
+              <p className="text-xs font-semibold text-[#8B7355] uppercase tracking-widest">
+                Live Park Rankings by Go Score
+              </p>
+              <button
+                onClick={() => setShowGoScoreInfo(true)}
+                aria-label="What is Go Score?"
+                className="w-4 h-4 rounded-full border border-[#C4B49A] text-[#B5A898] text-[10px] leading-none flex items-center justify-center flex-shrink-0"
+              >
+                i
+              </button>
+            </div>
             <p className="mt-0.5 text-xs text-[#B5A898]">
               Tap a park to see attraction wait times
             </p>
           </div>
+
+          {showGoScoreInfo && <GoScoreInfoModal onClose={() => setShowGoScoreInfo(false)} />}
 
           <div className="space-y-4">
             {(() => {
@@ -91,6 +105,12 @@ export default function Home() {
           </div>
         </>
       )}
+
+      <footer className="mt-10 text-center">
+        <Link href="/about" className="text-xs text-[#B5A898] underline underline-offset-2">
+          Meet the Creator
+        </Link>
+      </footer>
     </main>
   );
 }
