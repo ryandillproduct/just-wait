@@ -10,8 +10,11 @@ export const metadata: Metadata = {
 export default function About() {
   return (
     <main className="min-h-screen px-4 pt-10 pb-16 max-w-xl mx-auto">
-      <div className="flex flex-col items-center text-center mb-8">
-        <div className="w-56 h-72 rounded-2xl overflow-hidden border-2 border-[#F5C842] mb-4">
+      <div data-testid="about-header" className="flex flex-col items-center text-center mb-8 animate-bounce-in">
+        <div
+          data-testid="about-photo-frame"
+          className="w-56 h-72 rounded-2xl overflow-hidden border-2 border-[#F5C842] mb-4 shadow-[0_8px_24px_rgba(28,16,8,0.12)]"
+        >
           <Image
             src="/ryan-headshot.jpg"
             alt="Ryan, creator of WhichPark?"
