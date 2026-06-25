@@ -132,7 +132,7 @@ export function ParkCard({ park, rank, headlinerNames }: Props) {
       >
         <div
           data-testid="icon-badge"
-          className={`w-14 h-14 rounded-full flex items-center justify-center flex-shrink-0 ${park.isOpen ? 'icon-badge-open animate-icon-pulse' : ''}`}
+          className={`w-14 h-14 rounded-full flex items-center justify-center flex-shrink-0 ${park.isOpen ? 'icon-badge-open' : ''} ${park.isOpen && rank === 1 ? 'animate-icon-pulse' : ''}`}
           style={park.isOpen ? { background: 'linear-gradient(135deg, #FBF0DC, #F0DCA8)' } : undefined}
         >
           <ParkSilhouette

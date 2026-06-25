@@ -82,9 +82,14 @@ describe('ParkCard', () => {
     expect(screen.getByTestId('park-card')).not.toHaveClass('animate-glow-pulse');
   });
 
-  it('applies the icon idle pulse when the park is open', () => {
+  it('applies the icon idle pulse only to the #1 ranked card', () => {
     render(<ParkCard park={openPark} rank={1} headlinerNames={[]} />);
     expect(screen.getByTestId('icon-badge')).toHaveClass('animate-icon-pulse');
+  });
+
+  it('does not apply the icon idle pulse to a lower-ranked open card', () => {
+    render(<ParkCard park={openPark} rank={2} headlinerNames={[]} />);
+    expect(screen.getByTestId('icon-badge')).not.toHaveClass('animate-icon-pulse');
   });
 
   it('does not apply the icon idle pulse when the park is closed', () => {
