@@ -110,9 +110,26 @@ function compareParks(a: ScoredPark, b: ScoredPark): number {
   return a.name.localeCompare(b.name);
 }
 
-// Explains why `winner` ranks above `loser` when their recommendationScore tied.
-function tiebreakerReason(winner: ScoredPark, loser: ScoredPark): string | null {
-  if (recommendationScore(winner.score, winner) !== recommendationScore(loser.score, loser)) {
+function computeGoScore(park: ScoredPark): number {
+  if (!park.isOpen) return 0;
+  const rawScore = recommendationScore(park.score, park);
+  const normalized =
+    10 * (RECOMMENDATION_SCORE_MAX - rawScore) / (RECOMMENDATION_SCORE_MAX - RECOMMENDATION_SCORE_MIN);
+  return Math.max(0, Math.min(10, normalized));
+}
+
+// Matches the rounding used for display (ParkCard shows Go Score to the nearest 0.5).
+function roundToHalf(value: number): number {
+  return Math.round(value * 2) / 2;
+}
+
+// Explains why `winner` ranks above `loser` whenever their *displayed* Go Score
+// would otherwise look tied to a user, even if the underlying raw score differs.
+function tiebreakerReason(
+  winner: ScoredPark & { goScore: number },
+  loser: ScoredPark & { goScore: number }
+): string | null {
+  if (roundToHalf(winner.goScore) !== roundToHalf(loser.goScore)) {
     return null;
   }
   if (winner.avgWaitMinutes !== loser.avgWaitMinutes) {
@@ -214,20 +231,14 @@ export async function GET() {
       return compareParks(a, b);
     });
 
-    const withGoScore = sorted.map((park, i) => {
-      const next = i < sorted.length - 1 ? sorted[i + 1] : null;
+    const withScores = sorted.map((park) => ({ ...park, goScore: computeGoScore(park) }));
+
+    const withGoScore = withScores.map((park, i) => {
+      const next = i < withScores.length - 1 ? withScores[i + 1] : null;
       const tiebreakerNote =
         park.isOpen && next?.isOpen ? tiebreakerReason(park, next) ?? undefined : undefined;
 
-      const rawScore = recommendationScore(park.score, park);
-      const normalized =
-        10 * (RECOMMENDATION_SCORE_MAX - rawScore) / (RECOMMENDATION_SCORE_MAX - RECOMMENDATION_SCORE_MIN);
-
-      return {
-        ...park,
-        goScore: park.isOpen ? Math.max(0, Math.min(10, normalized)) : 0,
-        tiebreakerNote,
-      };
+      return { ...park, tiebreakerNote };
     });
 
     const recommendation = buildRecommendation(withGoScore);
