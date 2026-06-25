@@ -16,3 +16,77 @@ body {
   color: #1C1008;
   min-height: 100vh;
 }
+
+/* ===== Motion: card list entrance (staggered, used by ParkCard) ===== */
+@keyframes cardStaggerIn {
+  from { opacity: 0; transform: translateY(10px) scale(0.98); }
+  60% { opacity: 1; transform: translateY(-2px) scale(1.01); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.animate-card-stagger-in {
+  opacity: 1;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .animate-card-stagger-in {
+    opacity: 0;
+    animation: cardStaggerIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+}
+
+/* ===== Motion: continuous glow pulse for the #1 ranked card ===== */
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 4px 16px rgba(28, 16, 8, 0.06); }
+  50% { box-shadow: 0 4px 22px rgba(245, 200, 66, 0.55); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .animate-glow-pulse {
+    animation: glowPulse 1.8s ease-in-out infinite;
+  }
+}
+
+/* ===== Motion: continuous icon idle pulse ===== */
+@keyframes iconPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .animate-icon-pulse {
+    animation: iconPulse 2.2s ease-in-out infinite;
+  }
+}
+
+/* ===== Motion: bounce-in entrance (modal, banner, about page) ===== */
+@keyframes bounceIn {
+  from { opacity: 0; transform: scale(0.92) translateY(8px); }
+  60% { opacity: 1; transform: scale(1.02) translateY(-2px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+.animate-bounce-in {
+  opacity: 1;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .animate-bounce-in {
+    opacity: 0;
+    animation: bounceIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+}
+
+/* ===== Motion: smooth expand/collapse without JS height measurement ===== */
+.expand-grid {
+  display: grid;
+  grid-template-rows: 0fr;
+  overflow: hidden;
+  transition: grid-template-rows 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.expand-grid.expand-grid-open {
+  grid-template-rows: 1fr;
+}
+.expand-grid > div {
+  overflow: hidden;
+  min-height: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .expand-grid {
+    transition-duration: 0.01s;
+  }
+}
