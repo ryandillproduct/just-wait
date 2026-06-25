@@ -76,7 +76,10 @@ function SummaryText({ recommendation }: { recommendation: Recommendation }) {
 export function RecommendedBanner({ recommendation }: Props) {
   if (!recommendation) {
     return (
-      <div className="mb-6 px-5 py-4 rounded-2xl bg-[#F5EFE6] text-center">
+      <div
+        data-testid="recommended-banner"
+        className="mb-6 px-5 py-4 rounded-2xl bg-[#F5EFE6] text-center animate-bounce-in"
+      >
         <p className="text-[#B5A898] text-sm">
           All parks are closed right now. Check back once the parks reopen for live rankings.
         </p>
@@ -85,7 +88,10 @@ export function RecommendedBanner({ recommendation }: Props) {
   }
 
   return (
-    <div className="mb-6 px-5 py-4 rounded-2xl bg-[#FDF3D6] border border-[#F5C842]/30">
+    <div
+      data-testid="recommended-banner"
+      className="mb-6 px-5 py-4 rounded-2xl bg-[#FDF3D6] border border-[#F5C842]/30 animate-bounce-in"
+    >
       <p className="text-xs font-semibold text-[#8B6914] tracking-widest uppercase mb-1">
         🏆 Best Park to Visit Right Now
       </p>
