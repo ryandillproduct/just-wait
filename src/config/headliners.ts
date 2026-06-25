@@ -6,7 +6,7 @@ export const HEADLINERS: Record<number, string[]> = {
     'TRON Lightcycle / Run',
     'Space Mountain',
     'Big Thunder Mountain Railroad',
-    'Haunted Mansion',
+    "Tiana's Bayou Adventure",
   ],
   5: [ // EPCOT
     'Guardians of the Galaxy: Cosmic Rewind',
