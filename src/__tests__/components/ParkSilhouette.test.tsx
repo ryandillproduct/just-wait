@@ -21,10 +21,11 @@ describe('ParkSilhouette', () => {
     expect(container.querySelectorAll('path').length).toBe(3);
   });
 
-  it('renders the Hollywood Studios Sorcerer hat with a brim, moon, and six stars', () => {
+  it('renders the simplified Hollywood Studios tower with a roof and stepped tiers', () => {
     const { container } = render(<ParkSilhouette parkKey="hollywood-studios" />);
-    expect(container.querySelectorAll('ellipse').length).toBe(1);
-    // hat outline + moon + 6 stars = 8 paths
-    expect(container.querySelectorAll('path').length).toBe(8);
+    // roof barrel + narrow top + 3 stepped tiers + 2 elevator-shaft accents + ground line = 7 rects
+    expect(container.querySelectorAll('rect').length).toBe(7);
+    // roof triangle = 1 path
+    expect(container.querySelectorAll('path').length).toBe(1);
   });
 });

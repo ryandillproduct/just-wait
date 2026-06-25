@@ -19,7 +19,7 @@ export default function Home() {
 
   const loadParks = useCallback(async () => {
     try {
-      const res = await fetch('/api/parks');
+      const res = await fetch('/api/parks', { cache: 'no-store' });
       if (!res.ok) throw new Error('API error');
       const data: ApiResponse = await res.json();
       setParks(data.parks);

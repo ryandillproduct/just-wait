@@ -62,22 +62,21 @@ function EpcotPath() {
   );
 }
 
-// Sorcerer Mickey hat — the park's classic icon. Tall cone with a flared
-// brim, a crescent moon, and six stars scattered across the cone (the real
-// hat has stars/moons printed on the fabric). Same 0-64-to-viewBox
-// transform as the other redrawn icons.
+// Simplified Tower of Terror — an abstracted, stepped silhouette (roof
+// barrel, narrow top, three stepped tiers, two elevator-shaft accents)
+// rather than dense architectural window detail, so it reads clearly at
+// badge size. Same 0-64-to-viewBox transform as the other redrawn icons.
 function HollywoodStudiosPath() {
   return (
     <g transform="translate(50,2) scale(1.2) translate(-32,0)">
-      <path d="M32 1 C29 1 19 24 12 46 C19 41 26 38 32 38 C38 38 45 41 52 46 C45 24 35 1 32 1 Z" />
-      <ellipse cx="32" cy="48" rx="27" ry="7.5" />
-      <path d="M36 17 a3.2 3.2 0 1 0 0 6.4 a2.4 2.4 0 1 1 0 -6.4Z" fill="currentColor" opacity="0.65" />
-      <path d="M19 30 L20.4 33 L23.6 33.5 L21.3 35.7 L21.9 38.9 L19 37.3 L16.1 38.9 L16.7 35.7 L14.4 33.5 L17.6 33Z" fill="currentColor" opacity="0.6" />
-      <path d="M27 13 L27.8 14.8 L29.7 15.1 L28.3 16.4 L28.6 18.3 L27 17.4 L25.4 18.3 L25.7 16.4 L24.3 15.1 L26.2 14.8Z" fill="currentColor" opacity="0.6" />
-      <path d="M41 27 L41.8 28.6 L43.6 28.9 L42.3 30.1 L42.6 31.9 L41 31 L39.4 31.9 L39.7 30.1 L38.4 28.9 L40.2 28.6Z" fill="currentColor" opacity="0.6" />
-      <path d="M23 22 L23.5 23.3 L24.9 23.5 L23.9 24.5 L24.2 25.9 L23 25.2 L21.8 25.9 L22.1 24.5 L21.1 23.5 L22.5 23.3Z" fill="currentColor" opacity="0.6" />
-      <path d="M33 33 L33.6 34.6 L35.3 34.8 L34 36 L34.3 37.7 L33 36.9 L31.7 37.7 L32 36 L30.7 34.8 L32.4 34.6Z" fill="currentColor" opacity="0.6" />
-      <path d="M44 21 L44.4 22.1 L45.6 22.3 L44.7 23.1 L45 24.3 L44 23.7 L43 24.3 L43.3 23.1 L42.4 22.3 L43.6 22.1Z" fill="currentColor" opacity="0.6" />
+      <path d="M28 0 L32 -4 L36 0Z" />
+      <rect x="27" y="0" width="10" height="5" />
+      <rect x="23" y="5" width="18" height="10" />
+      <rect x="17" y="15" width="30" height="16" />
+      <rect x="11" y="31" width="42" height="29" />
+      <rect x="26" y="38" width="5" height="16" fill="currentColor" opacity="0.5" />
+      <rect x="33" y="38" width="5" height="16" fill="currentColor" opacity="0.5" />
+      <rect x="9" y="60" width="46" height="3" rx="1" />
     </g>
   );
 }
