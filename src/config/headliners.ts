@@ -9,7 +9,7 @@ export const HEADLINERS: Record<number, string[]> = {
     "Tiana's Bayou Adventure",
   ],
   5: [ // EPCOT
-    'Guardians of the Galaxy: Cosmic Rewind',
+    'Guardians of the Galaxy',
     'Frozen Ever After',
     'Test Track',
     "Remy's Ratatouille Adventure",
