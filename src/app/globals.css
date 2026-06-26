@@ -35,8 +35,8 @@ body {
 
 /* ===== Motion: continuous glow pulse for the #1 ranked card ===== */
 @keyframes glowPulse {
-  0%, 100% { box-shadow: 0 4px 16px rgba(28, 16, 8, 0.06); }
-  50% { box-shadow: 0 4px 22px rgba(245, 200, 66, 0.55); }
+  0%, 100% { box-shadow: 0 4px 16px rgba(28, 16, 8, 0.06), 0 0 0 0px rgba(245, 200, 66, 0); }
+  50% { box-shadow: 0 6px 28px rgba(245, 200, 66, 0.7), 0 0 0 2px rgba(245, 200, 66, 0.9); }
 }
 @media (prefers-reduced-motion: no-preference) {
   .animate-glow-pulse {
