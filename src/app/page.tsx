@@ -112,6 +112,9 @@ export default function Home() {
         <Link href="/about" className="text-xs text-[#B5A898] underline underline-offset-2">
           Meet the Creator
         </Link>
+        <p className="mt-2 text-xs text-[#B5A898]">
+          WhichPark? is an independent project and is not affiliated with or endorsed by Disney.
+        </p>
       </footer>
     </main>
   );
